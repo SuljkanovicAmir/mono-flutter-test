@@ -1,16 +1,26 @@
-# car_app
+# Car Application
 
-A new Flutter project.
+## Overview
 
-## Getting Started
+Assignment for job application
 
-This project is a starting point for a Flutter application.
+## Key Features
 
-A few resources to get you started if this is your first Flutter project:
+- VehicleMakes Screen: Displays a list of vehicle makes with filtering and pagination options.
+- Vehicle Models Page: Allows users to browse through different vehicle models.
+- Vehicle Details Page: Shows detailed body information and enables adding/removing models to favorites.
+- Favorites Page: Presents the models added by the user to their favorites list.
+- VIN Decoder Page: Decodes VIN and showcases detailed vehicle information.
+- Welcome Page: Serves as the initial landing page for users.
+- Drawer Navigation: Provides easy access to Home, Favorites, Popular List, and VIN Decoder pages.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies Used
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter: Framework used to develop the application.
+- Car API: Used to fetch vehicle data.
+- Cubit: For state management.
+- GetIt: Utilized for dependency injection.
+
+## APK File
+
+The APK file for this application will be available in the GitHub repository's release section.

@@ -6,7 +6,7 @@ class RandomNumberPage extends StatefulWidget {
   const RandomNumberPage({super.key});
 
   @override
-  _RandomNumberPageState createState() => _RandomNumberPageState();
+  State<RandomNumberPage> createState() => _RandomNumberPageState();
 }
 
 class _RandomNumberPageState extends State<RandomNumberPage> {
@@ -41,8 +41,7 @@ class _RandomNumberPageState extends State<RandomNumberPage> {
             RichText(
                 text: TextSpan(
               style: const TextStyle(
-                  fontSize: 18,
-                  color: Color.fromARGB(190, 255, 255, 255)),
+                  fontSize: 18, color: Color.fromARGB(190, 255, 255, 255)),
               children: [
                 TextSpan(
                   text: '\$$randomNum',

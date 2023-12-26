@@ -1,4 +1,6 @@
-class VehicleBodyModel {
+import 'package:equatable/equatable.dart';
+
+class VehicleBodyModel extends Equatable {
   final String type;
   final String width;
   final String height;
@@ -6,7 +8,7 @@ class VehicleBodyModel {
   final int seats;
   final int doors;
 
-  VehicleBodyModel({
+  const VehicleBodyModel({
     required this.type,
     required this.width,
     required this.length,
@@ -37,4 +39,7 @@ class VehicleBodyModel {
 
     return data;
   }
+
+  @override
+  List<Object?> get props => [type, width, height, length, seats, doors];
 }

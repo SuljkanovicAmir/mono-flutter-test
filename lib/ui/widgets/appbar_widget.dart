@@ -1,5 +1,3 @@
-import 'package:car_app/ui/screens/login_page.dart';
-import 'package:car_app/ui/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -12,7 +10,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    const user = null;
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: AppBar(
@@ -23,13 +20,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           scrolledUnderElevation: 0.0,
           title: GestureDetector(
               onTap: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/makes', arguments: {});
               },
               child: const Text(
                 'CarApp',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
+                  fontFamily: 'UberBold',
                   fontSize: 20,
                   shadows: [
                     Shadow(color: Colors.black, offset: Offset(-1.5, 1.5))
@@ -49,63 +48,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               scaffoldKey.currentState?.openDrawer();
             },
           ),
-          actions: <Widget>[
-            Container(
-                width: 30,
-                height: 30,
-                clipBehavior: Clip.hardEdge,
-                decoration: user != null
-                    ? BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: const Color.fromARGB(255, 51, 22, 131),
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(50.0)),
-                      )
-                    : BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: const Color.fromARGB(0, 51, 22, 131),
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(50.0)),
-                      ),
-                child: user != null
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProfilePage(),
-                            ),
-                          );
-                        },
-                        child: CircleAvatar(
-                          radius: 12,
-                          backgroundImage: NetworkImage(user.photoURL ?? ''),
-                        ),
-                      )
-                    : IconButton(
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                        icon: const Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(color: Colors.black, offset: Offset(1.2, 0))
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                          );
-                        },
-                      )),
-          ],
         ));
   }
 

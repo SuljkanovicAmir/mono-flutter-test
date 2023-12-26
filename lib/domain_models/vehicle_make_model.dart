@@ -1,9 +1,11 @@
-class VehicleMakeModel {
+import 'package:equatable/equatable.dart';
+
+class VehicleMakeModel extends Equatable {
   final int id;
   final String name;
   final String abrv;
 
-  VehicleMakeModel({
+  const VehicleMakeModel({
     required this.id,
     required this.name,
     required this.abrv,
@@ -24,4 +26,7 @@ class VehicleMakeModel {
     data['abrv'] = abrv;
     return data;
   }
+
+  @override
+  List<Object?> get props => [id, name, abrv];
 }

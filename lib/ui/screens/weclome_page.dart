@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,13 +10,16 @@ class MyHomePage extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           Positioned(
-              top: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? 250
-                  : 20,
-              left: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? 15
-                  : 150,
-              right: 15,
+            top: MediaQuery.of(context).orientation == Orientation.portrait
+                ? 250
+                : 20,
+            left: MediaQuery.of(context).orientation == Orientation.portrait
+                ? 15
+                : 150,
+            right: 15,
+            child: Container(
+              color: const Color.fromARGB(0, 255, 255, 255),
+              height: 500,
               child: Image.asset(
                 'assets/cars/car.jpg',
                 height:
@@ -25,7 +28,9 @@ class MyHomePage extends StatelessWidget {
                         : 400,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
-              )),
+              ),
+            ),
+          ),
           Positioned(
             top: MediaQuery.of(context).orientation == Orientation.portrait
                 ? 110
@@ -51,7 +56,7 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
                 const Text(
-                  'RENT',
+                  'Rent',
                   style: TextStyle(
                       fontSize: 80.0,
                       fontFamily: 'Portico',
@@ -81,7 +86,7 @@ class MyHomePage extends StatelessWidget {
                 child: OutlinedButton(
                   style: ButtonStyle(
                     side: MaterialStateProperty.all(const BorderSide(
-                        color: Color.fromARGB(80, 255, 255, 255))),
+                        color: Color.fromARGB(200, 255, 255, 255))),
                     minimumSize: MaterialStateProperty.all(const Size(150, 40)),
                   ),
                   onPressed: () {
@@ -98,12 +103,12 @@ class MyHomePage extends StatelessWidget {
                         "Let's Go",
                         style: TextStyle(
                           fontSize: 16,
-                          color: Color.fromARGB(160, 255, 255, 255),
+                          color: Color.fromARGB(220, 255, 255, 255),
                         ),
                       ),
                       Icon(
                         Icons.navigate_next_outlined,
-                        color: Color.fromARGB(160, 255, 255, 255),
+                        color: Color.fromARGB(220, 255, 255, 255),
                       ),
                     ],
                   ),

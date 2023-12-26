@@ -1,8 +1,8 @@
-import 'package:car_app/cubit/model_cubit.dart';
-import 'package:car_app/domain_models/vehicle_model_model.dart';
+import 'package:car_app/cubit/model/model_cubit.dart';
+import 'package:car_app/cubit/model/model_state.dart';
+import 'package:car_app/ui/widgets/models_page_widgets/models_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ModelsPage extends StatefulWidget {
   const ModelsPage(this.makeId, this.makeName, {super.key});
@@ -28,75 +28,33 @@ class _ModelsPageState extends State<ModelsPage> {
             style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),
-        body: Center(
-            child: BlocConsumer<VehicleModelCubit, List<VehicleModelModel>>(
-                listener: (context, vehicleModels) {},
-                builder: (context, vehicleModels) {
-                  if (vehicleModels.isEmpty) {
-                    context
-                        .read<VehicleModelCubit>()
-                        .fetchVehicleModels(widget.makeId);
-                    return const CircularProgressIndicator();
-                  } else {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 10),
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          mainAxisSpacing: 15.0,
-                          crossAxisSpacing: 15.0,
-                          childAspectRatio: 1.0,
-                        ),
-                        itemCount: vehicleModels.length,
-                        itemBuilder: (context, index) {
-                          final modelId = vehicleModels[index].id.toString();
-                          final modelName = vehicleModels[index].name;
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/details',
-                                  arguments: {
-                                    'modelId': modelId,
-                                    'makeId': widget.makeId,
-                                    'modelName': modelName,
-                                    'makeName': widget.makeName,
-                                  });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color.fromARGB(255, 28, 28, 28),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20,
-                                horizontal: 20,
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      vehicleModels[index].name,
-                                      style: GoogleFonts.roboto(
-                                          textStyle: const TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        fontSize: 20,
-                                      )),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  }
-                })));
+        body: Center(child: BlocBuilder<VehicleModelCubit, VehicleModelState>(
+            builder: (context, state) {
+          if (state is VehicleModelInitial) {
+            context.read<VehicleModelCubit>().fetchVehicleModels(widget.makeId);
+            return const CircularProgressIndicator(
+              color: Colors.white,
+            );
+          }
+          if (state is VehicleModelLoaded) {
+            return ModelsList(
+                models: state.data,
+                makeId: widget.makeId,
+                makeName: widget.makeName);
+          }
+          if (state is VehicleModelError) {
+            return const Text('No Data');
+          }
+          if (state is VehicleModelLoading) {
+            const SizedBox(
+              height: 200,
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: Colors.white,
+              )),
+            );
+          }
+          return Container();
+        })));
   }
 }

@@ -47,65 +47,68 @@ class _VinDecoderPageState extends State<VinDecoderPage> {
       key: _scaffoldKey,
       drawer: const DrawerWidget(),
       appBar: AppBarWidget(_scaffoldKey),
-      body: BlocBuilder<VinDecoderCubit, VinDecoderState>(
-        bloc: _vinDecoderCubit,
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const TextSelectionTheme(
-                  data: TextSelectionThemeData(
-                    selectionColor: Colors.blue,
-                    cursorColor: Colors.blue,
-                    selectionHandleColor: Colors.blue,
+      body: SingleChildScrollView(
+        child: BlocBuilder<VinDecoderCubit, VinDecoderState>(
+          bloc: _vinDecoderCubit,
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const TextSelectionTheme(
+                    data: TextSelectionThemeData(
+                      selectionColor: Colors.blue,
+                      cursorColor: Colors.blue,
+                      selectionHandleColor: Colors.blue,
+                    ),
+                    child: SelectableText(
+                      'Vin example: 3VWD17AJ1FM952961.\n (You can copy this text.)',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(color: Color.fromARGB(220, 255, 255, 255)),
+                    ),
                   ),
-                  child: SelectableText(
-                    'Vin example: 3VWD17AJ1FM952961.\n (You can copy this text.)',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Color.fromARGB(220, 255, 255, 255)),
+                  const SizedBox(
+                    height: 40,
                   ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                VinInputField(controller: _myController),
-                const SizedBox(height: 20.0),
-                Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 200),
-                    child: ElevatedButton(
-                      onPressed: _handleSubmit,
-                      child: const Text(
-                        'Decode VIN',
-                        style:
-                            TextStyle(color: Color.fromARGB(255, 14, 14, 14)),
+                  VinInputField(controller: _myController),
+                  const SizedBox(height: 20.0),
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 200),
+                      child: ElevatedButton(
+                        onPressed: _handleSubmit,
+                        child: const Text(
+                          'Decode VIN',
+                          style:
+                              TextStyle(color: Color.fromARGB(255, 14, 14, 14)),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                if (state is VinDecoderLoading) ...[
-                  const SizedBox(height: 40.0),
-                  const Center(
-                    child: CircularProgressIndicator(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                  if (state is VinDecoderLoading) ...[
+                    const SizedBox(height: 40.0),
+                    const Center(
+                      child: CircularProgressIndicator(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
                     ),
-                  ),
+                  ],
+                  const SizedBox(height: 20.0),
+                  if (state is VinDecoderLoaded) ...[
+                    VinDataSection(state: state)
+                  ],
+                  const SizedBox(height: 20),
+                  if (state is VinDecoderError) ...[
+                    const VinErrorSection(),
+                  ],
                 ],
-                const SizedBox(height: 20.0),
-                if (state is VinDecoderLoaded) ...[
-                  VinDataSection(state: state)
-                ],
-                const SizedBox(height: 20),
-                if (state is VinDecoderError) ...[
-                  const VinErrorSection(),
-                ],
-              ],
-            ),
-          );
-        },
+              ),
+            );
+          },
+        ),
       ),
     );
   }

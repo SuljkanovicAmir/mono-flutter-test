@@ -2,9 +2,11 @@ import 'package:car_app/domain_models/vehicle_make_model.dart';
 import 'package:flutter/material.dart';
 
 class MakesListWidget extends StatefulWidget {
-  const MakesListWidget(this.vehicleMakes, this.showSearch, {super.key});
+  const MakesListWidget(this.vehicleMakes, this.showSearch, this.isAscending,
+      {super.key});
   final List<VehicleMakeModel> vehicleMakes;
   final bool showSearch;
+  final bool isAscending;
   @override
   State<MakesListWidget> createState() => _MakesListWidgetState();
 }
@@ -44,6 +46,14 @@ class _MakesListWidgetState extends State<MakesListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    filteredMakes.sort((a, b) {
+      if (widget.isAscending) {
+        return a.name.compareTo(b.name);
+      } else {
+        return b.name.compareTo(a.name);
+      }
+    });
+
     return Column(children: [
       if (widget.showSearch)
         Padding(

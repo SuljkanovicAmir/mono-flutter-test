@@ -6,13 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MakesDataWidget extends StatefulWidget {
-  final bool isAscending;
-  final Function toggleSort;
-
   const MakesDataWidget({
     Key? key,
-    required this.isAscending,
-    required this.toggleSort,
   }) : super(key: key);
 
   @override
@@ -21,6 +16,13 @@ class MakesDataWidget extends StatefulWidget {
 
 class _MakesDataWidgetState extends State<MakesDataWidget> {
   bool showSearch = false;
+  bool isAscending = true;
+
+  void toggleSort() {
+    setState(() {
+      isAscending = !isAscending;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,6 @@ class _MakesDataWidgetState extends State<MakesDataWidget> {
       }
       if (state is VehicleMakeLoaded) {
         final vehicleMakes = state.data;
-
-        vehicleMakes.sort((a, b) {
-          if (widget.isAscending) {
-            return a.name.compareTo(b.name);
-          } else {
-            return b.name.compareTo(a.name);
-          }
-        });
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -85,20 +79,18 @@ class _MakesDataWidgetState extends State<MakesDataWidget> {
                   ),
                   IconButton(
                     icon: SvgPicture.asset(
-                      widget.isAscending
-                          ? 'assets/icons/a.svg'
-                          : 'assets/icons/z.svg',
+                      isAscending ? 'assets/icons/a.svg' : 'assets/icons/z.svg',
                       width: 28,
                       height: 28,
                     ),
-                    onPressed: () => {widget.toggleSort()},
+                    onPressed: () => {toggleSort()},
                   )
                 ],
               ),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 40),
-              child: MakesListWidget(vehicleMakes, showSearch),
+              child: MakesListWidget(vehicleMakes, showSearch, isAscending),
             ),
           ],
         );

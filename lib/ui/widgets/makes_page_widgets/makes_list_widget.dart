@@ -2,9 +2,9 @@ import 'package:car_app/domain_models/vehicle_make_model.dart';
 import 'package:flutter/material.dart';
 
 class MakesListWidget extends StatefulWidget {
-  const MakesListWidget(this.vehicleMakes, {super.key});
+  const MakesListWidget(this.vehicleMakes, this.showSearch, {super.key});
   final List<VehicleMakeModel> vehicleMakes;
-
+  final bool showSearch;
   @override
   State<MakesListWidget> createState() => _MakesListWidgetState();
 }
@@ -12,17 +12,62 @@ class MakesListWidget extends StatefulWidget {
 class _MakesListWidgetState extends State<MakesListWidget> {
   int _currentPage = 0;
   final int _itemsPerPage = 10;
+  late TextEditingController controller;
+  late List<VehicleMakeModel> filteredMakes;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+    filteredMakes = List.from(widget.vehicleMakes);
+  }
 
   List<dynamic> get _currentDisplayedMakes {
     final startIndex = _currentPage * _itemsPerPage;
     final endIndex = startIndex + _itemsPerPage;
-    return widget.vehicleMakes
-        .sublist(startIndex, endIndex.clamp(0, widget.vehicleMakes.length));
+    return filteredMakes.sublist(
+      startIndex,
+      endIndex.clamp(0, filteredMakes.length),
+    );
+  }
+
+  void filterMakes(String query) {
+    setState(() {
+      filteredMakes = widget.vehicleMakes.where((make) {
+        final makeNameLower = make.name.toLowerCase();
+        final queryLower = query.toLowerCase();
+        return makeNameLower.contains(queryLower);
+      }).toList();
+      _currentPage = 0;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      if (widget.showSearch)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: TextField(
+            controller: controller,
+            onChanged: filterMakes,
+            cursorColor: Colors.white,
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
+              helperStyle: TextStyle(color: Color.fromARGB(255, 218, 218, 218)),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white)),
+              labelStyle: TextStyle(
+                color: Color.fromARGB(255, 134, 134, 134),
+                fontSize: 16,
+              ),
+              labelText: 'Search makes',
+              prefixIcon: Icon(Icons.search),
+            ),
+          ),
+        ),
       ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),

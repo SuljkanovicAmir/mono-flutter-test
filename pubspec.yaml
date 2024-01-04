@@ -116,12 +116,6 @@ flutter:
     - family: Portico
       fonts:
         - asset: assets/fonts/Portico.otf
-    - family: UberBold
-      fonts:
-        - asset: assets/fonts/UberMoveBold.otf
-    - family: Uber
-      fonts:
-        - asset: assets/fonts/UberMoveMedium.otf
 
   #
   # For details regarding fonts from package dependencies,

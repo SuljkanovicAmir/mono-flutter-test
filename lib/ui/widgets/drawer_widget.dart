@@ -35,7 +35,6 @@ class DrawerWidget extends StatelessWidget {
                 'CarApp',
                 style: TextStyle(
                     fontSize: 35.0,
-                    fontFamily: 'UberBold',
                     color: Color.fromARGB(255, 255, 255, 255),
                     height: 1),
               ),

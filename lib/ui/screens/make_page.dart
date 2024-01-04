@@ -15,12 +15,6 @@ class MakesPage extends StatefulWidget {
 
 class _MakesPageState extends State<MakesPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isAscending = true;
-  void _toggleSort() {
-    setState(() {
-      _isAscending = !_isAscending;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +51,7 @@ class _MakesPageState extends State<MakesPage> {
                                 carLogo: CarData.carLogos[index]);
                           }))
                 ])),
-            MakesDataWidget(
-              isAscending: _isAscending,
-              toggleSort: _toggleSort,
-            ),
+            MakesDataWidget(),
           ],
         )));
   }

@@ -28,7 +28,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'UberBold',
                   fontSize: 20,
                   shadows: [
                     Shadow(color: Colors.black, offset: Offset(-1.5, 1.5))

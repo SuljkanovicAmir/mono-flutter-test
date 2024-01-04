@@ -64,7 +64,7 @@ class _VinDecoderPageState extends State<VinDecoderPage> {
                       selectionHandleColor: Colors.blue,
                     ),
                     child: SelectableText(
-                      'Vin example: 3VWD17AJ1FM952961.\n (You can copy this text.)',
+                      'Vin examples: 3VWD17AJ1FM952961, 5UXXW3C51G0M90009.\n (You can copy this text.)',
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(color: Color.fromARGB(220, 255, 255, 255)),

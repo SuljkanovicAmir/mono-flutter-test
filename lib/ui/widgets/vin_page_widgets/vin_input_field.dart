@@ -8,6 +8,7 @@ class VinInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLength: 17,
       cursorColor: Colors.white,
       style: const TextStyle(color: Colors.white),
       controller: controller,
